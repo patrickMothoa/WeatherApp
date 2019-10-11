@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color ="primary">
+    <ion-title >
+      <img style="border-radius: 50%;" src="assets\weatherIcon.jpg" width="80" height="80"> Weather Man.
+    </ion-title>
+  </ion-toolbar>
+  <ion-grid color="success">
+      <ion-row>
+        <ion-col>    
+    <ion-searchbar id="place-id" [(ngModel)]="city" [(ngModel)]="autocomplete.input" (click)="Location()"  (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
+  </ion-col>
+   
+  </ion-row>
+  <ion-row>
+      <ion-col>
+    <ion-list  [hidden]="autocompleteItems.length == 0">
+        <ion-item  *ngFor="let item of autocompleteItems" tappable id="submit" (click)="selectSearchResult(item)">
+        {{ item.description }}
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    
+  </ion-row>
+     </ion-grid>
+</ion-header>
+
+<ion-content  >
+  <!--  start map -->
+  <div id="map_canvas"> 
+    </div>
+  <!-- end -->
+
+  <div class="bg">
+      <!-- <br>
+      <ion-input style="background-color: rgb(22, 136, 189);border: solid  2px;width: 250px; border-radius: 10px 10px ;margin-left: 10px" [(ngModel)]="city"  plac
+      eholder="enter your Location" ></ion-input>
+          <ion-button style=" width: 150px;margin-left: 10px" (click)="Location()" color="primary">Enter</ion-button><br> -->
+      
+       <div class="stillo">
+        <ion-card color= "primary">
+       
+    
+        <ion-card-header>
+            <h3 style="text-align: center; font-family:'San Comic', San, monospace">
+                {{getTemper?.name}} , {{getTemper?.sys.country}}
+            </h3>
+    
+              <ion-item>
+              <h1 style = "text-align: center;">  
+                  <img src = "http://openweathermap.org/img/wn/01d@2x.png" alt = "clear" style = "width: 60px;height:60px;" *ngIf = "getTemper?.weather[0].description == 'clear sky'"/>
+                  <img  src="http://openweathermap.org/img/wn/10d@2x.png" alt = "clear" style = "width: 60px;height:60px;" *ngIf = "getTemper?.weather[0].description == 'rain'" />
+                  <img src="http://openweathermap.org/img/wn/11d@2x.png" alt = "clear" style = "width: 60px;height:60px;" *ngIf = "getTemper?.weather[0].description == 'thunderstorm'"/>
+                  <img src="http://openweathermap.org/img/wn/03d@2x.png" alt = "clear" style = "width: 60px;height:60px;" *ngIf = "getTemper?.weather[0].description == 'scattered clouds'"/>
+                </h1>
+                <ion-label><h3 style="text-align: center; font-family:'San Comic', San, monospace">
+                    {{getTemper?.weather[0].description}}
+                </h3></ion-label>
+              </ion-item> 
+    
+        </ion-card-header>
+      
+        <ion-card-content >
+          <ion-list>
+            
+            <ion-item style="text-align: center">
+              Humidity : <b >{{getTemper?.main.humidity}}</b>
+            </ion-item>
+            <ion-item>
+             pressure : <b>{{getTemper?.main.pressure}}</b>
+            </ion-item>
+            <ion-item>
+                Temparature : <b> {{temp}}</b>
+                <sup>&deg;</sup>C
+              </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
